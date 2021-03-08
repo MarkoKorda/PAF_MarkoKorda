@@ -44,36 +44,39 @@ while True:
     else:
         print("Pogresan unos!")
 
-d = sqrt((x-xr)**2+(y-yr)**2)
+def funkcija(x,y,xr,yr,r):
+    d = sqrt((x-xr)**2+(y-yr)**2)
 
-if d > r:
-    print("Tocka je izvan kruznice.")
-    print("Udaljena je {} od kruznice.".format(d-r))
-elif d == r:
-    print("Tocka je na kruznici.")
-else: 
-    print("Tocka je unutar kruznice.")
+    if d > r:
+        print("Tocka je izvan kruznice.")
+        print("Udaljena je {} od kruznice.".format(d-r))
+    elif d == r:
+        print("Tocka je na kruznici.")
+    else: 
+        print("Tocka je unutar kruznice.")
 
-xaxis = []
-yaxis = []
+    xaxis = []
+    yaxis = []
 
-for phi in range (1,3600):
-    X = xr + r*cos(phi/10)
-    Y = yr + r*sin(phi/10)
-    xaxis.append(X)
-    yaxis.append(Y)
+    for phi in range (1,3600):
+        X = xr + r*cos(phi/10)
+        Y = yr + r*sin(phi/10)
+        xaxis.append(X)
+        yaxis.append(Y)
 
-plt.plot(xaxis,yaxis)
-plt.plot([x],[y],'ro')
+    plt.plot(xaxis,yaxis)
+    plt.plot([x],[y],'ro')
 
-while True:
-        izbor = int(input("Unesi 1 za spremanje, a 2 za crtanje:"))
-        if izbor == 1:
-            ime = input("Ime grafa:")
-            plt.savefig(f"{ime}.pdf")
-            break
-        elif izbor == 2:
-            plt.show()
-            break
-        else:
-            print("Pogresan unos!")
+    while True:
+            izbor = int(input("Unesi 1 za spremanje, a 2 za crtanje:"))
+            if izbor == 1:
+                ime = input("Ime grafa:")
+                plt.savefig(f"{ime}.pdf")
+                break
+            elif izbor == 2:
+                plt.show()
+                break
+            else:
+                print("Pogresan unos!")
+
+funkcija(x,y,xr,yr,r)
