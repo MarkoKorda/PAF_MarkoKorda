@@ -1,4 +1,4 @@
-from math import pi,sin,cos
+from math import pi,sin,cos,sqrt
 import matplotlib.pyplot as plt
 
 class Particle:
@@ -32,9 +32,8 @@ class Particle:
         self.y = self.y + self.vy * dt
         self.ylist.append(self.y)
 
-    def range(self):
+    def range(self,dt):
         x0 = self.x
-        dt = 0.01
         while True:
             self.__move(dt)
             if self.y <= 0:
@@ -45,6 +44,19 @@ class Particle:
     def plot_trajectory(self):
         plt.plot(self.xlist,self.ylist)
         plt.show()
+
+    def range_analitic(self):
+        vy0 = self.v0*sin(self.theta)
+        y0 = self.ylist[0]
+        t1 = (vy0 + sqrt(vy0**2 + 2*9.81*y0))/9.81
+        t2 = (vy0 - sqrt(vy0**2 + 2*9.81*y0))/9.81
+        if t2 > t1:
+            t = t2
+        else:
+            t = t1
+        d = self.v0*cos(self.theta)*t
+        return d
+
 
     
 
