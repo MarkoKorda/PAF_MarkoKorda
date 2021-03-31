@@ -31,8 +31,8 @@ def integrate_rect(func,a,b,n):
     lower = 0
     i = a
     j = a + h
-    while j <= b:
-        if func(i) >= func(j):
+    for k in range(n):
+        if abs(func(i)) >= abs(func(j)):
             upper += func(i)*h
             lower += func(j)*h
         else:
@@ -47,7 +47,7 @@ def integrate_trap(func,a,b,n):
     integral = 0
     i = a
     j = a + h
-    while j <= b:
+    for k in range(n):
         integral += ((func(i) + func(j))/2)*h
         i += h
         j += h
