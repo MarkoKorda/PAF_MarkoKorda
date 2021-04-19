@@ -10,9 +10,9 @@ vh1.return_to_start()
 maxyar = vh1.max_height_with_ar(dt,k)
 vh1.return_to_start()
 
-T = vh1.duration(dt)
+t = vh1.duration(dt)
 vh1.return_to_start()
-Tar = vh1.duration_with_ar(dt,k)
+tar = vh1.duration_with_ar(dt,k)
 vh1.return_to_start()
 
 ylist1, vlist1, tlist1 = vh1.run_event(dt)
@@ -22,7 +22,7 @@ ylist2, vlist2, tlist2 = vh1.run_event_with_ar(dt,k)
 vh1.return_to_start()
 
 print("Max visina bez otpora zraka je: {} m \nMax visina sa otporom zraka je: {} m".format(maxy,maxyar))
-print("Vrijeme trajanja hitca bez otpora zraka je: {} s\nVrijeme trajanja hitca sa otporom zraka je: {} s".format(T,Tar))
+print("Vrijeme trajanja hitca bez otpora zraka je: {} s\nVrijeme trajanja hitca sa otporom zraka je: {} s".format(t,tar))
 
 fig, (ax1, ax2) = plt.subplots(1, 2)
 ax1.plot(tlist1, ylist1)
