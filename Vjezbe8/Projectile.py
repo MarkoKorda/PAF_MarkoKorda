@@ -76,6 +76,39 @@ class Projectile:
         self.y = self.y + self.vy * dt
         self.ylist.append(self.y)
 
+    def __move_with_ar_RK(self,dt):
+        ax = - (abs(self.vx) * self.vx * self.rho * self.Cd * self.A)/(2*self.m)
+        k1vx = ax * dt
+        k1x = self.vx * dt
+        ax = - (abs(self.vx + 0.5 * k1vx) * (self.vx + 0.5 * k1vx) * self.rho * self.Cd * self.A)/(2*self.m)
+        k2vx = ax * dt
+        k2x = (self.vx + 0.5 * k1vx) * dt
+        ax = - (abs(self.vx + 0.5 * k2vx) * (self.vx + 0.5 * k2vx) * self.rho * self.Cd * self.A)/(2*self.m)
+        k3vx = ax * dt
+        k3x = (self.vx + 0.5 * k2vx) * dt
+        ax = - (abs(self.vx + k3vx) * (self.vx + k3vx) * self.rho * self.Cd * self.A)/(2*self.m)
+        k4vx = ax * dt
+        k4x = (self.vx + k3vx) * dt
+        self.vx = self.vx + (1/6)*(k1vx + 2 * k2vx + 2 * k3vx + k4vx)
+        self.x = self.x + (1/6)*(k1x + 2 * k2x + 2 * k3x + k4x)
+        self.xlist.append(self.x)
+
+        ay = - 9.81 - (abs(self.vy) * self.vy * self.rho * self.Cd * self.A)/(2*self.m)
+        k1vy = ay * dt
+        k1y = self.vy * dt
+        ay = - 9.81 - (abs(self.vy + 0.5 * k1vy) * (self.vy + 0.5 * k1vy) * self.rho * self.Cd * self.A)/(2*self.m)
+        k2vy = ay * dt
+        k2y = (self.vy + 0.5 * k1vy) * dt
+        ay = - 9.81 - (abs(self.vy + 0.5 * k2vy) * (self.vy + 0.5 * k2vy) * self.rho * self.Cd * self.A)/(2*self.m)
+        k3vy = ay * dt
+        k3y = (self.vy + 0.5 * k2vy) * dt
+        ay = - 9.81 - (abs(self.vy + k3vy) * (self.vy + k3vy) * self.rho * self.Cd * self.A)/(2*self.m)
+        k4vy = ay * dt
+        k4y = (self.vy + k3vy) * dt
+        self.vy = self.vy + (1/6)*(k1vy + 2 * k2vy + 2 * k3vy + k4vy)
+        self.y = self.y + (1/6)*(k1y + 2 * k2y + 2 * k3y + k4y)
+        self.ylist.append(self.y)
+
     def run_event(self,dt):
         while True:
             self.__move(dt)
@@ -88,10 +121,36 @@ class Projectile:
             if self.y <= 0:
                 break
 
+    def run_event_with_ar_RK(self,dt):
+        while True:
+            self.__move_with_ar_RK(dt)
+            if self.y <= 0:
+                break
+
     def range_(self,dt):
         x0 = self.x
         while True:
             self.__move(dt)
+            if self.y <= 0:
+                break
+        d = abs(self.x - x0)
+        self.return_to_start()
+        return d
+
+    def range_with_ar(self,dt):
+        x0 = self.x
+        while True:
+            self.__move_with_ar(dt)
+            if self.y <= 0:
+                break
+        d = abs(self.x - x0)
+        self.return_to_start()
+        return d
+
+    def range_with_ar_RK(self,dt):
+        x0 = self.x
+        while True:
+            self.__move_with_ar_RK(dt)
             if self.y <= 0:
                 break
         d = abs(self.x - x0)
