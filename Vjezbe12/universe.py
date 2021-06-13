@@ -31,7 +31,9 @@ class Universe:
             t = t + dt
 
 class Planet:
-    def __init__(self,m,r0,v0):
+    def __init__(self,name,color,m,r0,v0):
+        self.name = name
+        self.color = color
         self.m = m
         self.r0 = r0
         self.v0 = v0
@@ -43,6 +45,8 @@ class Planet:
         self.ylist = []
 
     def reset(self):
+        del self.name
+        del self.color
         del self.m
         del self.r0
         del self.v0
@@ -53,10 +57,14 @@ class Planet:
         del self.ylist
 
     def return_to_start(self):
+        name = self.name
+        color = self.color
         m = self.m
         r0 = self.r0
         v0 = self.v0
         self.reset()
+        self.name = name
+        self.color = color
         self.m = m
         self.r0 = r0
         self.v0 = v0
